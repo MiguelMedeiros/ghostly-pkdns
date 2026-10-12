@@ -1,0 +1,17 @@
+{
+  "name": "pkdns",
+  "version": "1.0.0",
+  "kind": "mini-app",
+  "title": "PKDNS Resolver",
+  "tagline": "Resolve Pkarr public keys to DNS records",
+  "description": "Paste a Pkarr public key (52 z-base32 characters, or a pk: or pubky address) and see the DNS records its owner published on the Mainline DHT. Every relay answer is checked in the app against the key's Ed25519 signature, so a relay is never trusted. Also looks up ordinary domain names over DNS over HTTPS, and keeps favorites, recent keys, a resolve history with charts, and your relay list.",
+  "releaseNotes": "First version: the PKDNS Resolver extension as a Ghostly app, with signature checks of every relay answer and DNS over HTTPS lookups.",
+  "entry": "index.html",
+  "permissions": ["internet"],
+  "view": "full",
+  "runtime": { "host": ">=1.2", "clients": ["web", "desktop"] },
+  "license": "MIT",
+  "sources": ["https://raw.githubusercontent.com/MiguelMedeiros/ghostly-pkdns/HEAD/app.ghostlyapp"],
+  "homepage": "https://github.com/MiguelMedeiros/ghostly-pkdns",
+  "support": "https://github.com/MiguelMedeiros/ghostly-pkdns/issues"
+}

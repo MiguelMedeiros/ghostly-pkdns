@@ -1,0 +1,38 @@
+{
+  "name": "ghostly-pkdns",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PKDNS Resolver: resolve Pkarr public keys to DNS records, checked in the app. A Ghostly mini-app that builds to one self-contained HTML file.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiguelMedeiros/ghostly-pkdns.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "dev": "vite",
+    "digest": "node scripts/digest.mjs",
+    "shots": "npm run build && node scripts/shots.mjs",
+    "stage": "node scripts/stage.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@noble/curves": "2.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.2",
+    "happy-dom": "20.14.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.2",
+    "vitest": "5.0.3"
+  },
+  "overrides": {
+    "rolldown": "1.2.12"
+  }
+}

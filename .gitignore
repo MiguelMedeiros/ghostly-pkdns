@@ -1,0 +1,11 @@
+dist
+node_modules
+release
+.probe
+# Only the signed bundle at the root is committed: never another bundle, never a key.
+*.ghostlyapp
+!/app.ghostlyapp
+*.key
+*.pem
+test-results
+playwright-report
