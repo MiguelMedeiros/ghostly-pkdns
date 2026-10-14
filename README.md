@@ -93,7 +93,7 @@ Node 22 or later.
 
 ```sh
 npm ci
-npm test          # vitest: 90 tests
+npm test          # vitest: 95 tests
 npm run build     # typecheck, then dist/index.html, the whole app in one file
 npm run digest    # the file's size and SHA-256, as a signed bundle lists it
 npm run dev       # the app in a browser, without Ghostly (data in memory)
@@ -109,6 +109,8 @@ The tests (`test/`):
 | `data.test.ts` | Limits (50, 100, 1000, 20), relay rules, relay latency min/avg/max, history figures, the CSV, the export/import round trip, hostile backups, the stored pieces |
 | `ui.test.ts` | The app in a DOM with a made-up broker and relays: resolving, a forged or replayed answer never shown, record text never run as markup, favorites, recent, history, relays, settings, languages, dialogs |
 | `bundle.test.ts` | The build is one HTML file that names no server but the relays and resolvers; the manifest; all nine languages complete |
+| `icon.test.ts` | The committed icon is `scripts/icon.mjs`'s picture, pixel for pixel, and a square PNG within WISP 1200's bounds |
+| `version.test.ts` | The version is the same in `ghostly-app.json`, `package.json` and `package-lock.json` |
 
 The payload tests were written first and run against a port of the extension's parser, which checks nothing: 11 of
 13 failed (everything but the two "accepted" cases). The check was then written until all 13 passed.
@@ -131,7 +133,7 @@ update to. Nothing in this repository holds a key, and no bundle is signed by th
 ```sh
 npm ci && npm test && npm run build
 npm run digest        # note the SHA-256
-npm run stage         # release/index.html + release/ghostly-app.json: the folder to sign
+npm run stage         # release/index.html, release/icon.png, release/ghostly-app.json: the folder to sign
 ghostly app publish release --key <the publisher key file> --out app.ghostlyapp --pretty
 ghostly app verify app.ghostlyapp --pretty
 ```
@@ -139,8 +141,9 @@ ghostly app verify app.ghostlyapp --pretty
 `ghostly app publish` takes every file in the folder it is given, so it is run on `release/`, never on the
 repository. It writes `publisher`, `sequence` and `files` into the manifest; `ghostly-app.json` here has none of
 them. The signed `app.ghostlyapp` is committed at the repository's root, where the manifest's `sources` points
-(`.gitignore` lets that one bundle in, and no key). To add `icon.png` (square, at most 256 KiB) or screenshots, put
-them in `release/` before signing.
+(`.gitignore` lets that one bundle in, and no key). The icon, `assets/icon.png`, is drawn by `npm run gen:icon`
+(`scripts/icon.mjs`) and committed; `npm run stage` copies it in as `icon.png`. The versions are in
+[CHANGES.md](CHANGES.md).
 
 ## Layout
 
@@ -154,6 +157,7 @@ them in `release/` before signing.
 | `src/ui/` | The pages (`views.ts`), the charts (`charts.ts`) and the app (`app.ts`) |
 | `src/vendor/miniApp.ts` | The broker's types and limits, vendored from Ghostly (`@ghostlytools/sdk/app`) |
 | `ghostly-app.json` | The manifest, without what the publisher CLI writes |
+| `assets/icon.png`, `scripts/icon.mjs` | The icon, and the script that draws it |
 | `vite.config.ts` | The single-file build, with the license notices of what the file carries |
 
 ## Credits and license
